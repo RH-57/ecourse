@@ -44,7 +44,21 @@ export async function signInAction(
 
     await createSession(user.id)
 
-    redirect('/dashboard')
+    if(user.role === 'admin') {
+        redirect('/admin/dashboard')
+    }
+
+    if(user.role === 'mentor') {
+        redirect('/mentor/dashboard')
+    }
+
+    if(user.role === 'student') {
+        redirect('/student/dashboard')
+    }
+
+    return {
+        errors: {}
+    }
 
 }
 
