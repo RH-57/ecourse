@@ -34,7 +34,7 @@ export async function signInAction(
         },
     })
 
-    if (!user || !(await bcrypt.compare(result.data.password, user.password))) {
+    if (!user || !user.password || !(await bcrypt.compare(result.data.password, user.password))) {
         return {
             errors: {
                 _form: ['Email / Password Salah'],

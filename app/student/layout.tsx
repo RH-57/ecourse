@@ -49,7 +49,7 @@ export default async function StudentLayout({
               </div>
               {/* 4. Buat inisial avatar dinamis berdasarkan huruf pertama namanya */}
               <div className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-900 text-sm font-bold text-white shadow-sm uppercase">
-                {user.name.charAt(0)}
+                {(user.name || "S").charAt(0)}
               </div>
             </div>
           </div>

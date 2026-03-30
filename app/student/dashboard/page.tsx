@@ -1,15 +1,17 @@
 // file: app/(student)/dashboard/page.tsx
+import { getCurrentUser } from "@/lib/auth/session";
 import { BookOpen, Clock, Trophy, PlayCircle } from "lucide-react";
 import Link from "next/link";
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const user = await getCurrentUser();
   return (
     <div className="max-w-5xl">
       
       {/* Greeting Section */}
       <div className="mb-8">
         <h1 className="font-heading text-2xl font-extrabold text-slate-900 sm:text-3xl">
-          Selamat datang kembali, Budi! 👋
+          Selamat datang kembali, {user?.name}!
         </h1>
         <p className="mt-2 text-sm text-slate-600">
           Mari lanjutkan progres belajarmu hari ini. Kamu sudah menyelesaikan 3 modul minggu ini.
