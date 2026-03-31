@@ -13,13 +13,14 @@ import {
   ShieldCheck,
   Menu,
   X,
-  Globe, // <-- 1. Tambahkan ikon Globe di sini
+  Tag,
 } from "lucide-react";
 import { logoutAction } from "@/app/actions/auth/SignIn";
 
 const menuItems = [
   { name: "Ringkasan", href: "/admin/dashboard", icon: LayoutDashboard },
   { name: "Kelola Pengguna", href: "/admin/users", icon: Users },
+  { name: "Kelola Kategori", href: "/admin/categories", icon: Tag },
   { name: "Kelola Kelas", href: "/admin/courses", icon: BookOpen },
   { name: "Data Transaksi", href: "/admin/transactions", icon: CreditCard },
   { name: "Pengaturan Sistem", href: "/admin/settings", icon: Settings },
