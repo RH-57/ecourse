@@ -120,16 +120,6 @@ export default function AdminSidebar() {
         {/* Area Tindakan Tambahan (Bawah) */}
         <div className="border-t border-slate-800 p-4 space-y-2">
           
-          {/* --- 2. TAMBAHAN: Tombol Akses Tampilan User --- */}
-          <Link
-            href="/student/dashboard" 
-            onClick={handleClose}
-            className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-400 hover:bg-slate-800 hover:text-white transition-colors"
-          >
-            <Globe className="h-5 w-5 text-slate-500" />
-            Tampilan Pengguna
-          </Link>
-          
           {/* Logout */}
           <button
             onClick={handleLogout}

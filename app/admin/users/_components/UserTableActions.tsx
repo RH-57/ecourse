@@ -3,12 +3,14 @@
 import { useState, useTransition } from "react";
 import { MoreVertical, Edit, Trash2, X, Loader2, AlertTriangle } from "lucide-react";
 import { updateUserAction, deleteUserAction } from "@/app/actions/admin/UserAction";
+import { toast } from "sonner";
 
 interface UserProps {
   id: string;
   name: string | null;
   email: string;
   role: string;
+  status: string;
 }
 
 export default function UserTableActions({ user }: { user: UserProps }) {
@@ -22,21 +24,27 @@ export default function UserTableActions({ user }: { user: UserProps }) {
     startTransition(async () => {
       const result = await updateUserAction(user.id, formData);
       if (result.success) {
+        toast.success("Data user berhasil diperbarui!");
         setShowEditModal(false);
         setError(null);
       } else {
         setError(result.error || "Gagal update");
+        toast.error("Gagal memperbarui data");
       }
     });
   };
 
   const handleDelete = async () => {
     startTransition(async () => {
-      const result = await deleteUserAction(user.id);
-      if (result.success) setShowDeleteModal(false);
-      else alert(result.error);
+        const result = await deleteUserAction(user.id);
+        if (result.success) {
+        toast.success("User telah dihapus dari sistem"); // <-- Notifikasi Delete
+        setShowDeleteModal(false);
+        } else {
+        toast.error("Gagal menghapus user");
+        }
     });
-  };
+    };
 
   return (
     <div className="relative flex items-center justify-end">
@@ -108,6 +116,18 @@ export default function UserTableActions({ user }: { user: UserProps }) {
                   <option value="student">student</option>
                   <option value="mentor">mentor</option>
                   <option value="admin">admin</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-1">Status Akun</label>
+                <select 
+                    name="status" 
+                    defaultValue={user.status} 
+                    className="w-full rounded-lg border-slate-200 py-2.5 px-4 text-sm outline-none ring-1 ring-slate-200 focus:ring-2 focus:ring-rose-500"
+                >
+                    <option value="active">active</option>
+                    <option value="inactive">inactive</option>
+                    <option value="blocked">blocked</option>
                 </select>
               </div>
               <div className="flex gap-3 pt-4">

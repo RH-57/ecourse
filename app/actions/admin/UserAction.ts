@@ -44,12 +44,13 @@ export async function addUserAction(prevState: AddUserActionState | null, formDa
 export async function updateUserAction(id: string, formData: FormData) {
   const name = formData.get("name") as string;
   const email = formData.get("email") as string;
+  const status = formData.get("status") as "active" | "inactive" | "blocked";
   const role = formData.get("role") as "admin" | "mentor" | "student";
 
   try {
     await prisma.user.update({
       where: { id },
-      data: { name, email, role }
+      data: { name, email, role, status }
     });
     revalidatePath("/admin/users");
     return { success: true };
@@ -61,7 +62,11 @@ export async function updateUserAction(id: string, formData: FormData) {
 // Action untuk Hapus User
 export async function deleteUserAction(id: string) {
   try {
-    await prisma.user.delete({ where: { id } });
+    // SOFT DELETE: Update tanggal dihapus saja
+    await prisma.user.update({
+      where: { id },
+      data: { deletedAt: new Date() } 
+    });
     revalidatePath("/admin/users");
     return { success: true };
   } catch (e) {

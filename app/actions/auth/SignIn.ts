@@ -42,6 +42,22 @@ export async function signInAction(
         }
     }
 
+    if (user.status === 'inactive') {
+        return {
+            errors: {
+                _form: ['Akun anda tidak aktif. Silahkan hubungi Admin.'],
+            }
+        }
+    }
+
+    if (user.status === 'blocked') {
+        return {
+            errors: {
+                _form: ['Akun anda diblokir karena melanggar ketentuan!'],
+            }
+        }
+    }
+
     await createSession(user.id)
 
     if(user.role === 'admin') {

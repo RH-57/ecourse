@@ -3,6 +3,7 @@
 import { useState, useActionState, useTransition } from "react";
 import { UserPlus, X, Shield, HardHat, GraduationCap, Loader2 } from "lucide-react";
 import { addUserAction } from "@/app/actions/admin/UserAction";
+import { toast } from "sonner";
 
 export default function AddUserModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,10 +21,12 @@ export default function AddUserModal() {
 
       if (result.success) {
         // JIKA BERHASIL: Langsung tutup modal di sini
+        toast.success("User baru berhasil ditambahkan!");
         handleClose();
       } else {
         // JIKA GAGAL: Tampilkan pesan error
         setError(result.error || "Terjadi kesalahan sistem");
+        toast.error(result.error || "Gagal menambah user");
       }
     });
   };

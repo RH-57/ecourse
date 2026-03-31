@@ -2,6 +2,7 @@ import { getCurrentUser } from "@/lib/auth/session";
 import { redirect } from "next/navigation";
 import AdminSidebar from "./_components/Sidebar";
 import { Bell } from "lucide-react";
+import { Toaster } from "sonner";
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const user = await getCurrentUser();
@@ -39,6 +40,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         <main className="flex-1 overflow-y-auto p-6 lg:p-8">
           {children}
         </main>
+        <Toaster position="top-center" richColors closeButton />
       </div>
     </div>
   );
